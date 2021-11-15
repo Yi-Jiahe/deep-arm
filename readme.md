@@ -13,9 +13,11 @@ A: The focus of this project was mainly to explore what it was like to train a m
 
 In hindsight there are things I would like to improve on regarding the design of the robotic arm. Firstly, the second joint need not have 2-DoF, 1 would have theoretically been sufficient, evidenced by the small actuation angles for the DoF (also in part due to the loss function choosen). A more realistic model would probably also have been a plus.
 
+
 Q: Questions about the training data used.
 
 A: In hindsight, again, there are two main things I would like to improve on. Firstly, the cuboid space within which the model was trained resulted in a larger amount of training data for the corners of the space, despite the uniform nature of yaw angle for the robot. This could have introduced some unwanted bias to the arm related to the corners, and could have been avoided if the points were sampled in a hemisphere around the base of the arm. This issue arose due to an oversight when the generation algorithm was redesigned. Originally the points were generated with a radial coordinate system to better match the reach of the arm, but again there was a problem of a higher concentration of points towards the pole of the hemisphere. The cuboid was chosen to ensure the points were evenly distributed through space. To address this issue, the points could have been generated using a cartesian coordinate system, and then filtered based on their distance to the base of the arm, forming a hemisphere of evenly distributed points. Secondly, the points were not shuffled which the algorithm could have picked up on, learning something to do with the order the training data was presented in. A simple fix would be to shuffle the training set.
+
 
 Q: I noticed that there is a dead-zone where the model struggles to reach the desired point.
 
